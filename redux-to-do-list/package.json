@@ -1,12 +1,16 @@
 {
   "name": "rails-redux-todolist",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ayumi5/redux-rails-todolist.git"
+  },
+  "author": "Ayumi Udaka",
   "license": "ISC",
   "dependencies": {
     "react": "~0.13.3",
@@ -15,6 +19,7 @@
     "redux": "~1.0.1",
     "babel-loader": "~5.3.2",
     "react-redux": "~1.0.1",
-    "babel-core": "~5.8.23"
+    "babel-core": "~5.8.23",
+    "react-hot-loader": "~1.3.0"
   }
 }
