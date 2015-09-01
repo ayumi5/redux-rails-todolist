@@ -13,13 +13,14 @@
   "author": "Ayumi Udaka",
   "license": "ISC",
   "dependencies": {
-    "react": "~0.13.3",
+    "babel-core": "~5.8.23",
+    "babel-loader": "~5.3.2",
     "webpack": "~1.12.0",
     "webpack-dev-server": "~1.10.1",
-    "redux": "~1.0.1",
-    "babel-loader": "~5.3.2",
-    "react-redux": "~1.0.1",
-    "babel-core": "~5.8.23",
+    "react": "~0.13.3",
+    "redux": "^1.0.1",
+    "react-redux": "^0.8.2",
+    "redux-devtools": "^1.0.2",
     "react-hot-loader": "~1.3.0"
   }
 }
