@@ -22,7 +22,8 @@ React.render(
 //   console.log(store.getState())
 // );
 //
-// store.dispatch(newTodo('awesome'));
-// store.dispatch(newTodo('this is test'));
+// store.dispatch(newTodo('Study Redux'));
+// store.dispatch(newTodo('Love Dog'));
+// store.dispatch(newTodo('Testing'));
 // store.dispatch(completeTodo(1));
 // unsubscribe()
