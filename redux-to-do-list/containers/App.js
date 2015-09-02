@@ -3,19 +3,8 @@ import { Provider } from 'react-redux';
 import NewToDo from '../components/new-to-do';
 import { newTodo } from '../actions';
 import newtodos from '../reducers';
-import { compose, createStore, applyMiddleware } from 'redux';
-import { devTools, persistState } from 'redux-devtools';
+import { finalCreateStore } from '../store/configureStore';
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
-import thunk from 'redux-thunk';
-
-const finalCreateStore = compose(
-  applyMiddleware(thunk),
-  devTools(),
-  persistState(
-    window.location.href.match(/[?&]debug_session=([^&]+)\b/)
-  ),
-  createStore
-);
 
 const store = finalCreateStore(newtodos);
 
