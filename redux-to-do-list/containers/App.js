@@ -1,19 +1,32 @@
 import React, {Component, PropTypes} from 'react';
 import { connect } from 'react-redux';
-import NewToDo from '../components/new-to-do';
-import { newTodo } from '../actions'
+import NewToDo from '../components/NewToDo';
+import ToDo from '../components/ToDo';
+import ToDoList from '../components/ToDoList';
+import { newTodo, completeTodo } from '../actions'
 
 class App extends Component {
   render(){
-    const { dispatch } = this.props;
+    const { dispatch, allTodos } = this.props;
     return (
       <div>
         <NewToDo onAddClick={text =>
           dispatch(newTodo(text))
         }/>
+        <ToDoList
+          todos={allTodos}
+          onTodoClick={index =>
+            dispatch(completeTodo(index))
+          }/>
       </div>
     );
   }
 }
 
-export default connect()(App);
+function select(state){
+  return {
+    allTodos: state.todos
+  };
+}
+
+export default connect(select)(App);
