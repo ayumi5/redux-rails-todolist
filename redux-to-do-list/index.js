@@ -1,15 +1,13 @@
+import 'babel-core/polyfill';
 import React from 'react';
-import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import App from './containers/App';
 import newtodos from './reducers';
-import 'babel-core/polyfill';
-
 import { finalCreateStore } from './store/configureStore';
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 
 const store = finalCreateStore(newtodos);
-//let store = createStore(newtodos);
+
 let rootElement = document.getElementById('root');
 React.render(
   <div>
