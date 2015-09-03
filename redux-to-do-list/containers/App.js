@@ -4,8 +4,14 @@ import NewToDo from '../components/NewToDo';
 import ToDo from '../components/ToDo';
 import ToDoList from '../components/ToDoList';
 import { newTodo, completeTodo } from '../actions'
+import { Provider } from 'react-redux';
+import newtodos from '../reducers';
+//import { finalCreateStore } from '../store/configureStore';
+//import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
 
-class App extends Component {
+//const store = finalCreateStore(newtodos);
+
+export default class App extends Component {
   render(){
     const { dispatch, allTodos } = this.props;
     return (
