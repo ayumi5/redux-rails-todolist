@@ -5,12 +5,21 @@ import App from './containers/App';
 import newtodos from './reducers';
 import 'babel-core/polyfill';
 
-let store = createStore(newtodos);
+import { finalCreateStore } from './store/configureStore';
+import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
+
+const store = finalCreateStore(newtodos);
+//let store = createStore(newtodos);
 let rootElement = document.getElementById('root');
 React.render(
-  <Provider store={store}>
-    {() => <App />}
-  </Provider>,
+  <div>
+    <Provider store={store}>
+      {() => <App />}
+    </Provider>
+    <DebugPanel top right bottom>
+      <DevTools store={store} monitor={LogMonitor} />
+    </DebugPanel>
+  </div>,
   rootElement
 );
 
