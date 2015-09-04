@@ -1,10 +1,66 @@
-export const NEW_TO_DO = "NEW_TO_DO";
-export const COMPLETE_TO_DO = "COMPLETE_TO_DO";
+import fetch from 'isomorphic-fetch';
 
-export function newTodo(text) {
-  return {type: "NEW_TO_DO", text}
+export const REQUEST_POSTS = 'REQUEST_POSTS';
+export const RECEIVE_POSTS = 'RECEIVE_POSTS';
+export const SELECT_REDDIT = 'SELECT_REDDIT';
+export const INVALIDATE_REDDIT = 'INVALIDATE_REDDIT';
+
+export function selectReddit(reddit) {
+  return {
+    type: SELECT_REDDIT,
+    reddit
+  };
 }
 
-export function completeTodo(index) {
-  return {type: "COMPLETE_TO_DO", index}
+export function invalidateReddit(reddit) {
+  return {
+    type: INVALIDATE_REDDIT,
+    reddit
+  };
+}
+
+function requestPosts(reddit) {
+  return {
+    type: REQUEST_POSTS,
+    reddit
+  };
+}
+
+function receivePosts(reddit, json) {
+  return {
+    type: RECEIVE_POSTS,
+    reddit,
+    posts: json.data.children.map(child => child.data),
+    receiveAt: Date.now()
+  };
+}
+
+//thunk action creator
+//redux-thunk middleware allows you to write action creators that return a thunk instead of an action.
+function fetchPosts(reddit) {
+  return dispatch => {
+    dispatch(requestPosts(reddit));
+    return fetch(`http://www.reddit.com/r/${reddit}.json`)
+      .then(req => req.json())
+      .then(json => dispatch(receivePosts(reddit, json)));
+  }
+}
+
+function shouldFetchPosts(state, reddit) {
+  const posts = state.postsByReddit[reddit];
+  if (!posts) {
+    return true;
+  } else if (posts.isFetching) {
+    return false;
+  } else {
+    return posts.didInvalidate;
+  }
+}
+
+export function fetchPostsIfNeeded(reddit) {
+  return (dispatch, getState) => {
+    if (shouldFetchPosts(getState(), reddit)) {
+      return dispatch(fetchPosts(reddit));
+    }
+  }
 }

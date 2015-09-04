@@ -1,14 +1,14 @@
 import 'babel-core/polyfill';
 import React from 'react';
 import { Provider } from 'react-redux';
-import App from './containers/App';
-import newtodos from './reducers';
 import { finalCreateStore } from './store/configureStore';
 import { DevTools, DebugPanel, LogMonitor } from 'redux-devtools/lib/react';
+import App from './containers/App';
+import rootReducer from './reducers'
 
-const store = finalCreateStore(newtodos);
-
+const store = finalCreateStore(rootReducer)
 let rootElement = document.getElementById('root');
+
 React.render(
   <div>
     <Provider store={store}>
@@ -19,18 +19,4 @@ React.render(
     </DebugPanel>
   </div>,
   rootElement
-);
-
-//for verify its working
-// import { newTodo, completeTodo } from './actions';
-// let store = createStore(newtodos);
-// console.log(store.getState());
-// let unsubscribe = store.subscribe(() =>
-//   console.log(store.getState())
-// );
-//
-// store.dispatch(newTodo('Study Redux'));
-// store.dispatch(newTodo('Love Dog'));
-// store.dispatch(newTodo('Testing'));
-// store.dispatch(completeTodo(1));
-// unsubscribe()
+)

@@ -1,30 +1,58 @@
-import {NEW_TO_DO, COMPLETE_TO_DO} from './actions';
+import { combineReducers } from 'redux';
+import { SELECT_REDDIT, INVALIDATE_REDDIT, REQUEST_POSTS, RECEIVE_POSTS } from './actions';
 
-const initialState = {
-  todos: []
-};
-
-function newtodos(state = initialState, action) {
+function selectedReddit(state = 'reactjs', action) {
   switch (action.type) {
-  case NEW_TO_DO:
+  case SELECT_REDDIT:
+    return action.reddit;
+  default:
+    return state;
+  }
+}
+
+function posts(state={
+  isFetching: false,
+  didInvalidate: false,
+  items: []
+}, action) {
+  switch (action.type) {
+  case INVALIDATE_REDDIT:
     return Object.assign({}, state, {
-      todos: [...state.todos, {
-        text: action.text,
-        completed: false
-      }]
+      didInvalidate: true
     });
-  case COMPLETE_TO_DO:
+  case REQUEST_POSTS:
     return Object.assign({}, state, {
-      todos: [
-        ...state.todos.slice(0, action.index),
-        Object.assign({}, state.todos[action.index],{
-          completed: true
-        }),
-        ...state.todos.slice(action.index + 1)
-      ]
+      isFetching: true,
+      didInvalidate: false
+    });
+  case RECEIVE_POSTS:
+    return Object.assign({}, state, {
+      isFetching: false,
+      didInvalidate: false,
+      items: action.posts,
+      lastUpdated: action.receiveAt
     });
   default:
     return state;
   }
 }
-export default newtodos;
+
+function postsByReddit(state={}, action) {
+  switch (action.type) {
+  case INVALIDATE_REDDIT:
+  case RECEIVE_POSTS:
+  case REQUEST_POSTS:
+    return Object.assign({}, state, {
+      [action.reddit]: posts(state[action.reddit], action)
+    });
+  default:
+    return state;
+  }
+}
+
+const rootReducer = combineReducers({
+  postsByReddit,
+  selectedReddit
+});
+
+export default rootReducer;
