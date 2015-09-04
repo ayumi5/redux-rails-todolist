@@ -28,38 +28,3 @@ function newtodos(state = initialState, action) {
   }
 }
 export default newtodos;
-
-//example
-//{
-//  todos: [{
-//    text: 'Study Redux',
-//    completed: true,
-//}, {
-//  text: 'Love Dog',
-//  completed: false
-//}, {
-//  text: 'Testing',
-//  completed: false
-//}]
-//}
-//when dispatch with completeTodo action:
-//store.dispatch(completeTodo(1));
-
-//in Reducer:
-//get all the objects before the target object
-//...state.todos.slice(0, action.index)
-//=>{text: 'Study Redux', completed: false}
-
-//get the target object
-//state.todos[action.index]
-//=>{text: 'Love dog', completed: false}
-
-//change the value of the target obejct
-//Object.assign({}, state.todos[action.index],{
-//  completed: true
-//})
-//=>{text: 'Love dog', completed: true}
-
-//get the objects after the target object
-//...state.todos.slice(action.index + 1)
-//=>{text: 'Testing', completed: false}
