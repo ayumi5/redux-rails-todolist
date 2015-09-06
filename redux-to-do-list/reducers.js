@@ -1,65 +1,71 @@
-import {NEW_TO_DO, COMPLETE_TO_DO} from './actions';
+import { combineReducers } from 'redux';
+import {NEW_TO_DO, COMPLETE_TO_DO, REQUEST_LIST, RECEIVE_LIST} from './actions';
 
-const initialState = {
-  todos: []
-};
-
-function newtodos(state = initialState, action) {
+function newtodos(state = [], action) {
   switch (action.type) {
   case NEW_TO_DO:
-    return Object.assign({}, state, {
-      todos: [...state.todos, {
-        text: action.text,
-        completed: false
-      }]
-    });
+    return [...state, {
+      text: action.text,
+      completed: false
+    }];
   case COMPLETE_TO_DO:
-    return Object.assign({}, state, {
-      todos: [
-        ...state.todos.slice(0, action.index),
-        Object.assign({}, state.todos[action.index],{
-          completed: true
-        }),
-        ...state.todos.slice(action.index + 1)
-      ]
-    });
+    return [
+      ...state.slice(0, action.index),
+      Object.assign({}, state[action.index], {
+        completed: true
+      }),
+      ...state.slice(action.index + 1)
+    ];
   default:
     return state;
   }
 }
-export default newtodos;
 
-//example
+function lists(state={
+  isFetching: false,
+  items: []
+}, action) {
+  switch(action.type) {
+    case REQUEST_LIST:
+      return Object.assign({}, state, {
+        isFetching: true
+      });
+    case RECEIVE_LIST:
+      return Object.assign({}, state, {
+        isFetching: false,
+        items: ['test']
+        //items: action.list
+      });
+    default:
+      return state;
+  }
+}
+
+const rootReducer = combineReducers({
+  newtodos,
+  lists
+})
+export default rootReducer;
+
+//the state shape
 //{
-//  todos: [{
-//    text: 'Study Redux',
-//    completed: true,
-//}, {
-//  text: 'Love Dog',
-//  completed: false
-//}, {
-//  text: 'Testing',
-//  completed: false
-//}]
+//  newtodos: [
+//  {
+//    text: "text",
+//    completed: false
+//  },
+//  {
+//    text: "another text",
+//    completed: true
+//  }
+//],
+//  lists: {
+//    isFetching: true,
+//    items: [
+//      {
+//        text: "items",
+//        completed: true
+//      }
+//]
 //}
-//when dispatch with completeTodo action:
-//store.dispatch(completeTodo(1));
-
-//in Reducer:
-//get all the objects before the target object
-//...state.todos.slice(0, action.index)
-//=>{text: 'Study Redux', completed: false}
-
-//get the target object
-//state.todos[action.index]
-//=>{text: 'Love dog', completed: false}
-
-//change the value of the target obejct
-//Object.assign({}, state.todos[action.index],{
-//  completed: true
-//})
-//=>{text: 'Love dog', completed: true}
-
-//get the objects after the target object
-//...state.todos.slice(action.index + 1)
-//=>{text: 'Testing', completed: false}
+//}
