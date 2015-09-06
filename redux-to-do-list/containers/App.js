@@ -25,7 +25,7 @@ export default class App extends Component {
 
 function select(state){
   return {
-    allTodos: state.todos
+    allTodos: state.newtodos
   };
 }
 
