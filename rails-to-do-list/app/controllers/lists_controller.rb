@@ -1,5 +1,6 @@
 class ListsController < ApplicationController
   protect_from_forgery except: [:create]
+  before_action :authenticate_user!
 
   def index
     @todos = [{'todo' => 'Pat a dog', 'completed' => true}, {'todo' => 'Play with a dog', 'completed' => false}]
