@@ -1,9 +1,11 @@
 import fetch from 'isomorphic-fetch';
+import xhr from 'xhr';
 
 export const NEW_TO_DO = "NEW_TO_DO";
 export const COMPLETE_TO_DO = "COMPLETE_TO_DO";
 export const REQUEST_LIST = "REQUEST_LIST";
 export const RECEIVE_LIST = "RECEIVE_LIST";
+export const POST_LIST = "POST_LIST";
 
 export function newTodo(text) {
   return {type: "NEW_TO_DO", text}
@@ -31,5 +33,21 @@ export function fetchList(list) {
     return fetch('http://localhost:3000/listings.json')
       .then(req => req.json())
       .then(json => dispatch(receiveList(list, json)))
+  }
+}
+
+export function postList(list) {
+  return dispatch => {
+    return xhr({
+      json: { todo: list, completed: false },
+      //body: { todo: list, completed: false },
+      uri: "http://localhost:3000/listings",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }, function (err, resp, body) {
+      console.log(err)
+    })
   }
 }
