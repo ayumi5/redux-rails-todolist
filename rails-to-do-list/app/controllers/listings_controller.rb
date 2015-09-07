@@ -1,11 +1,11 @@
 class ListingsController < ApplicationController
 
   def index
-    @personal = {'name' => 'Yamada', 'old' => 28}
+    @todos = {'todo' => 'Pat a dog', 'completed' => true}
 
     respond_to do |format|
       format.html
-      format.json { render json: @personal }
+      format.json { render json: @todos }
     end
   end
 end

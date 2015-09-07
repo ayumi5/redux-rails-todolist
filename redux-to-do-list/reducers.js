@@ -26,18 +26,17 @@ function lists(state={
   items: []
 }, action) {
   switch(action.type) {
-    case REQUEST_LIST:
-      return Object.assign({}, state, {
-        isFetching: true
-      });
-    case RECEIVE_LIST:
-      return Object.assign({}, state, {
-        isFetching: false,
-        items: ['test']
-        //items: action.list
-      });
-    default:
-      return state;
+  case REQUEST_LIST:
+    return Object.assign({}, state, {
+      isFetching: true
+    });
+  case RECEIVE_LIST:
+    return Object.assign({}, state, {
+      isFetching: false,
+      items: action.list
+    });
+  default:
+    return state;
   }
 }
 
@@ -46,26 +45,3 @@ const rootReducer = combineReducers({
   lists
 })
 export default rootReducer;
-
-//the state shape
-//{
-//  newtodos: [
-//  {
-//    text: "text",
-//    completed: false
-//  },
-//  {
-//    text: "another text",
-//    completed: true
-//  }
-//],
-//  lists: {
-//    isFetching: true,
-//    items: [
-//      {
-//        text: "items",
-//        completed: true
-//      }
-//]
-//}
-//}
