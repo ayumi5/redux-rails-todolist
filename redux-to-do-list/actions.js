@@ -30,7 +30,7 @@ function receiveList(list, json) {
 export function fetchList(list) {
   return dispatch => {
     dispatch(requestList(list));
-    return fetch('http://localhost:3000/listings.json')
+    return fetch('http://localhost:3000/lists.json')
       .then(req => req.json())
       .then(json => dispatch(receiveList(list, json)))
   }
@@ -41,7 +41,7 @@ export function postList(text) {
     dispatch(newTodo(text));
     return xhr({
       json: { todo: text, completed: false },
-      uri: "http://localhost:3000/listings",
+      uri: "http://localhost:3000/lists",
       method: "POST",
       headers: {
         "Content-Type": "application/json"
