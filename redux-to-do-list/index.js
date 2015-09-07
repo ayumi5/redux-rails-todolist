@@ -9,18 +9,19 @@ import rootReducer from './reducers'
 const store = finalCreateStore(rootReducer)
 let rootElement = document.getElementById('root');
 
-React.render(
-  <div>
-    <Provider store={store}>
-      {() => <App />}
-    </Provider>
-    <DebugPanel top right bottom>
-      <DevTools store={store} monitor={LogMonitor} />
-    </DebugPanel>
-  </div>,
-  rootElement
-)
-
+// React.render(
+//   <div>
+//     <Provider store={store}>
+//       {() => <App />}
+//     </Provider>
+//     <DebugPanel top right bottom>
+//       <DevTools store={store} monitor={LogMonitor} />
+//     </DebugPanel>
+//   </div>,
+//   rootElement
+// )
+import {postList} from './actions';
+store.dispatch(postList("waaat"));
 // console.log(store.getState());
 // let unsubscribe = store.subscribe(() =>
 //   console.log(store.getState())

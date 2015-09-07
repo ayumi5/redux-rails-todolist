@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import {NEW_TO_DO, COMPLETE_TO_DO, REQUEST_LIST, RECEIVE_LIST} from './actions';
+import {NEW_TO_DO, COMPLETE_TO_DO, REQUEST_LIST, RECEIVE_LIST, POST_LIST} from './actions';
 
 function newtodos(state = [], action) {
   switch (action.type) {
@@ -35,6 +35,8 @@ function lists(state={
       isFetching: false,
       items: action.list
     });
+  case POST_LIST:
+    return 'success!'
   default:
     return state;
   }
