@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import NewToDo from '../components/NewToDo';
 import ToDo from '../components/ToDo';
 import ToDoList from '../components/ToDoList';
-import { newTodo, completeTodo } from '../actions'
+import FetchList from '../components/FetchList';
+import { newTodo, completeTodo, fetchList } from '../actions'
 
 export default class App extends Component {
   render(){
-    const { dispatch, allTodos } = this.props;
+    const { dispatch, allTodos, lists } = this.props;
     return (
       <div>
         <NewToDo onAddClick={text =>
@@ -18,6 +19,11 @@ export default class App extends Component {
           onTodoClick={index =>
             dispatch(completeTodo(index))
           }/>
+        <FetchList
+          lists={lists}
+          onFetchClick={type =>
+            dispatch(fetchList(type))
+          }/>
       </div>
     );
   }
@@ -25,7 +31,8 @@ export default class App extends Component {
 
 function select(state){
   return {
-    allTodos: state.newtodos
+    allTodos: state.newtodos,
+    lists: state.lists
   };
 }
 
