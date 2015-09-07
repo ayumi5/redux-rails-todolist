@@ -36,11 +36,11 @@ export function fetchList(list) {
   }
 }
 
-export function postList(list) {
+export function postList(text) {
   return dispatch => {
+    dispatch(newTodo(text));
     return xhr({
-      json: { todo: list, completed: false },
-      //body: { todo: list, completed: false },
+      json: { todo: text, completed: false },
       uri: "http://localhost:3000/listings",
       method: "POST",
       headers: {
