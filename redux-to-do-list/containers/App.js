@@ -4,7 +4,7 @@ import NewToDo from '../components/NewToDo';
 import ToDo from '../components/ToDo';
 import ToDoList from '../components/ToDoList';
 import FetchList from '../components/FetchList';
-import { newTodo, completeTodo, fetchList } from '../actions'
+import { newTodo, completeTodo, fetchList, postList } from '../actions'
 
 export default class App extends Component {
   render(){
@@ -12,7 +12,7 @@ export default class App extends Component {
     return (
       <div>
         <NewToDo onAddClick={text =>
-          dispatch(newTodo(text))
+          dispatch(postList(text))
         }/>
         <ToDoList
           todos={allTodos}
