@@ -7,6 +7,7 @@ export const REQUEST_LIST = "REQUEST_LIST";
 export const RECEIVE_LIST = "RECEIVE_LIST";
 export const POST_LIST = "POST_LIST";
 export const USER_LOGIN = "USER_LOGIN";
+export const LOGIN_FAILED = "LOGIN_FAILED";
 
 export function newTodo(text) {
   return {type: "NEW_TO_DO", text}
@@ -57,6 +58,10 @@ function userLogin(user) {
   return {type: "USER_LOGIN", user}
 }
 
+function loginFailed(user){
+  return {type: "LOGIN_FAILED", user}
+}
+
 export function postUser(user){
   return dispatch  => {
     return xhr({
@@ -67,7 +72,12 @@ export function postUser(user){
         "Content-Type": "application/json"
       }
     }, function (err, resp, body) {
-      dispatch(userLogin(user))
+      if(resp.statusCode >= 300) {
+        dispatch(loginFailed(user))
+      } else {
+        console.log(resp)
+        dispatch(userLogin(user))
+      }
     })
   }
 }
