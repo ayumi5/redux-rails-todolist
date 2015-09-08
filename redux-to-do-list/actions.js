@@ -53,7 +53,11 @@ export function postList(text) {
   }
 }
 
-export function userLogin(user){
+function userLogin(user) {
+  return {type: "USER_LOGIN", user}
+}
+
+export function postUser(user){
   return dispatch  => {
     return xhr({
       json: {user: user},
@@ -63,6 +67,7 @@ export function userLogin(user){
         "Content-Type": "application/json"
       }
     }, function (err, resp, body) {
+      dispatch(userLogin(user))
     })
   }
 }
