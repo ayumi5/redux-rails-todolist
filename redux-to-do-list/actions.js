@@ -6,6 +6,7 @@ export const COMPLETE_TO_DO = "COMPLETE_TO_DO";
 export const REQUEST_LIST = "REQUEST_LIST";
 export const RECEIVE_LIST = "RECEIVE_LIST";
 export const POST_LIST = "POST_LIST";
+export const USER_LOGIN = "USER_LOGIN";
 
 export function newTodo(text) {
   return {type: "NEW_TO_DO", text}
@@ -51,3 +52,43 @@ export function postList(text) {
     })
   }
 }
+
+export function userLogin(user){
+  return dispatch  => {
+    return xhr({
+      json: {user: user},
+      uri: "http://localhost:3000/users/sign_in",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }, function (err, resp, body) {
+    })
+  }
+}
+
+
+//state shape
+// {
+//   newtodos: [
+//     {todo: "love a dog", completed: true},
+//     {todo: "study Korean", completed: false}
+//   ]
+//   fetchTodos: {
+//     isFetching: false,
+//     items: [
+//       {todo: "love family", completed: true}
+//     ]
+//   }
+//   postTodos: {
+//     isPosting: false,
+//     items: []
+//   }
+//   userLogin: {
+//     isLoggingin: false,
+//     Loggedin: true,
+//     user: [
+//       { email: "example@test.com", password: "password" }
+//     ]
+//   }
+// }

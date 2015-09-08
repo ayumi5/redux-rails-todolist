@@ -4,25 +4,36 @@ import NewToDo from '../components/NewToDo';
 import ToDo from '../components/ToDo';
 import ToDoList from '../components/ToDoList';
 import FetchList from '../components/FetchList';
-import { newTodo, completeTodo, fetchList, postList } from '../actions'
+import UserAuthentication from '../components/UserAuthentication'
+import { newTodo, completeTodo, fetchList, postList, userLogin } from '../actions'
 
 export default class App extends Component {
   render(){
     const { dispatch, allTodos, lists } = this.props;
     return (
       <div>
-        <NewToDo onAddClick={text =>
-          dispatch(postList(text))
-        }/>
-        <ToDoList
-          todos={allTodos}
-          onTodoClick={index =>
-            dispatch(completeTodo(index))
+        { false &&
+          <NewToDo onAddClick={text =>
+            dispatch(postList(text))
           }/>
-        <FetchList
-          lists={lists}
-          onFetchClick={type =>
-            dispatch(fetchList(type))
+        }
+        { false &&
+          <ToDoList
+            todos={allTodos}
+            onTodoClick={index =>
+              dispatch(completeTodo(index))
+          }/>
+        }
+        { false &&
+          <FetchList
+            lists={lists}
+            onFetchClick={type =>
+              dispatch(fetchList(type))
+          }/>
+        }
+        <UserAuthentication
+          onLoginClick={user =>
+            dispatch(userLogin(user))
           }/>
       </div>
     );
