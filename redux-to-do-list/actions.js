@@ -75,7 +75,6 @@ export function postUser(user){
       if(resp.statusCode >= 300) {
         dispatch(loginFailed(user))
       } else {
-        console.log(resp)
         dispatch(userLogin(user))
       }
     })
