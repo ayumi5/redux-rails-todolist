@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-fetch';
 import xhr from 'xhr';
 
 export const NEW_TO_DO = "NEW_TO_DO";

@@ -2,10 +2,10 @@ class ListsController < ApplicationController
   protect_from_forgery except: [:create]
 
   def index
-    @todos = [{'todo' => 'Pat a dog', 'completed' => true}, {'todo' => 'Play with a dog', 'completed' => false}]
+    @todos = List.all
     respond_to do |format|
       format.html
-      format.json { render json: {test: "test"} }
+      format.json { render json: {todos: @todos} }
     end
   end
 
