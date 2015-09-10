@@ -9,7 +9,7 @@ export default class ToDo extends Component {
           textDecoration: this.props.todo.completed ? "line-through" : "none",
           cursor: this.props.todo.completed ? "default" : "pointer"
         }}>
-        {this.props.todo.text}
+        {this.props.todo.todo}
       </li>
     )
   }

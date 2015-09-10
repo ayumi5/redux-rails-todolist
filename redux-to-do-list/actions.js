@@ -17,12 +17,13 @@ export function completeTodo(index) {
   return {type: "COMPLETE_TO_DO", index}
 }
 
-function requestList(list) {
-  return {type: "REQUEST_LIST", list}
+function requestList(user) {
+  return {type: "REQUEST_LIST", user}
 }
 
-function receiveList(json) {
-  return { type: "RECEIVE_LIST", list: json} }
+function receiveList(list) {
+  return { type: "RECEIVE_LIST", list: list }
+}
 
 function sendUser(user){
   return {type: "SEND_USER", user}
@@ -93,16 +94,12 @@ export function postUser(user){
 
 //state shape
 // {
-//   newtodos: [
-//     {todo: "love a dog", completed: true},
-//     {todo: "study Korean", completed: false}
-//   ]
-//   fetchTodos: {
-//     isFetching: false,
-//     items: [
-//       {todo: "love family", completed: true}
-//     ]
-//   }
+//  fetchTodos: {
+//    isFetching: false,
+//    todos: [
+//      {todo: "love a dog", completed: true}
+//    ]
+//  }
 //   postTodos: {
 //     isPosting: false,
 //     items: []

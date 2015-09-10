@@ -9,7 +9,7 @@ import { newTodo, completeTodo, fetchList, postList, postUser } from '../actions
 
 export default class App extends Component {
   render(){
-    const { dispatch, allTodos, lists, login, user } = this.props;
+    const { dispatch, allTodos, login, user } = this.props;
     return (
       <div>
         { login.Loggedin &&
@@ -28,7 +28,6 @@ export default class App extends Component {
         }
         { login.Loggedin &&
           <FetchList
-            lists={lists}
             user={user}
             onFetchClick={user =>
               dispatch(fetchList(user))
@@ -47,10 +46,9 @@ export default class App extends Component {
 
 function select(state){
   return {
-    allTodos: state.newtodos,
-    lists: state.lists,
     login: state.login,
-    user: state.login.user
+    user: state.login.user,
+    allTodos: state.fetchtodos.todos
   };
 }
 
