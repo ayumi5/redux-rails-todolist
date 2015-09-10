@@ -8,6 +8,8 @@ export const RECEIVE_LIST = "RECEIVE_LIST";
 export const POST_LIST = "POST_LIST";
 export const USER_LOGIN = "USER_LOGIN";
 export const LOGIN_FAILED = "LOGIN_FAILED";
+export const GET_TOKEN = "GET_TOKEN";
+export const SET_TOKEN = "SET_TOKEN";
 
 export function newTodo(text) {
   return {type: "NEW_TO_DO", text}
@@ -65,22 +67,38 @@ function loginFailed(user){
 export function postUser(user){
   return dispatch  => {
     return xhr({
-      json: {user: user},
-      uri: "http://localhost:3000/users/sign_in",
+      json: { user },
+      uri: "http://localhost:3000/authenticate",
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       }
     }, function (err, resp, body) {
       if(resp.statusCode >= 300) {
-        dispatch(loginFailed(user))
+        //dispatch(loginFailed(user))
       } else {
-        dispatch(userLogin(user))
+        console.log(resp)
+        //dispatch(userLogin(user))
       }
     })
   }
 }
 
+function setToken(token){
+  return {type: "SET_TOKEN", token}
+}
+
+export function getToken(path){
+  return dispatch => {
+    return xhr({
+      uri: { path },
+      headers: {'Authorization': "gettoken"}
+    }, function (err, resp, body) {
+      //console.log(resp)
+      //dispatch(setToken("reuiofda"))
+    });
+  }
+}
 
 //state shape
 // {
@@ -105,4 +123,7 @@ export function postUser(user){
 //       { email: "example@test.com", password: "password" }
 //     ]
 //   }
+//  getToken: {
+//   token: 'fdsafdjkls;vdsafdk342'
+//  }
 // }

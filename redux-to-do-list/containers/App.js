@@ -5,9 +5,13 @@ import ToDo from '../components/ToDo';
 import ToDoList from '../components/ToDoList';
 import FetchList from '../components/FetchList';
 import UserAuthentication from '../components/UserAuthentication'
-import { newTodo, completeTodo, fetchList, postList, postUser } from '../actions'
+import { newTodo, completeTodo, fetchList, postList, postUser, getToken } from '../actions'
 
 export default class App extends Component {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(getToken("http://localhost:3000/lists"));
+  }
   render(){
     const { dispatch, allTodos, lists, login } = this.props;
     return (

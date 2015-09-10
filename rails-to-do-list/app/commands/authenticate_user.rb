@@ -7,7 +7,7 @@ class AuthenticateUser
   end
 
   def call
-    JsonWenToken.encode(user_id: user.id) if user
+    JsonWebToken.encode(user_id: user.id) if user
   end
 
   private
@@ -15,8 +15,9 @@ class AuthenticateUser
   attr_accessor :email, :password
 
   def user
-    user = User.by_email(email)
-    return user if user && user.authenticate(password)
+    user = User.find_by_email(email)
+    puts "password", password
+    #return user if user && user.authenticate(password)
 
     errors.add :user_authentication, "invalid credentials"
     nil
