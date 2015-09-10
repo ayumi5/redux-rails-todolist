@@ -13,7 +13,7 @@ export default class NewToDo extends Component {
   handleClick(event) {
     const node = findDOMNode(this.refs.newtodo);
     const text = node.value.trim();
-    this.props.onAddClick(text);
+    this.props.onAddClick(text, this.props.user);
     node.value = '';
   }
 }

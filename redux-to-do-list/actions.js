@@ -8,8 +8,7 @@ export const RECEIVE_LIST = "RECEIVE_LIST";
 export const POST_LIST = "POST_LIST";
 export const USER_LOGIN = "USER_LOGIN";
 export const LOGIN_FAILED = "LOGIN_FAILED";
-export const GET_TOKEN = "GET_TOKEN";
-export const SET_TOKEN = "SET_TOKEN";
+export const SEND_USER = "SEND_USER";
 
 export function newTodo(text) {
   return {type: "NEW_TO_DO", text}
@@ -24,8 +23,10 @@ function requestList(list) {
 }
 
 function receiveList(json) {
-  return {
-    type: "RECEIVE_LIST", list: json};
+  return { type: "RECEIVE_LIST", list: json} }
+
+function sendUser(user){
+  return {type: "SEND_USER", user}
 }
 
 export function fetchList(user){
@@ -40,18 +41,22 @@ export function fetchList(user){
   }
 }
 
-export function postList(text) {
+export function postList(text, user) {
   return dispatch => {
-    dispatch(newTodo(text));
     return xhr({
       json: { todo: text, completed: false },
       uri: "http://localhost:3000/lists",
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        'Authorization': user.auth_token
       }
     }, function (err, resp, body) {
-      console.log(err)
+      if(resp.statusCode >= 300) {
+        console.log(err)
+      } else {
+        dispatch(newTodo(text));
+      }
     })
   }
 }
@@ -66,6 +71,7 @@ function loginFailed(user){
 
 export function postUser(user){
   return dispatch  => {
+    dispatch(sendUser(user))
     return xhr({
       json: { user },
       uri: "http://localhost:3000/authenticate",
@@ -82,17 +88,6 @@ export function postUser(user){
         dispatch(fetchList(user))
       }
     })
-  }
-}
-
-
-export function getToken(path){
-  return dispatch => {
-    return xhr({
-      uri: { path },
-      headers: {'Authorization': "gettoken"}
-    }, function (err, resp, body) {
-    });
   }
 }
 

@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import {NEW_TO_DO, COMPLETE_TO_DO, REQUEST_LIST, RECEIVE_LIST, POST_LIST, USER_LOGIN, LOGIN_FAILED, SET_TOKEN} from './actions';
+import {NEW_TO_DO, COMPLETE_TO_DO, REQUEST_LIST, RECEIVE_LIST, POST_LIST, USER_LOGIN, LOGIN_FAILED, SEND_USER} from './actions';
 
 function newtodos(state = [], action) {
   switch (action.type) {
@@ -48,6 +48,10 @@ function login(state={
   user: []
 }, action){
   switch(action.type){
+  case SEND_USER:
+    return Object.assign({}, state, {
+      isLoggingin: true
+    })
   case USER_LOGIN:
     return Object.assign({}, state, {
       isLoggingin: false,
@@ -64,21 +68,9 @@ function login(state={
   }
 }
 
-function token(state={}, action){
-  switch(action.type){
-  case SET_TOKEN:
-    return Object.assign({}, state, {
-      token: action.token
-    });
-  default:
-    return state;
-  }
-}
-
 const rootReducer = combineReducers({
   newtodos,
   lists,
-  login,
-  token
+  login
 })
 export default rootReducer;

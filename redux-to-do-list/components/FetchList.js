@@ -7,7 +7,7 @@ export default class FetchList extends Component {
         <ul>
           {this.props.lists}
         </ul>
-        <button onClick={(e) => this.props.onFetchClick(this.props.users)}>Fetch</button>
+        <button onClick={(e) => this.props.onFetchClick(this.props.user)}>Fetch</button>
       </div>
     )
   }
