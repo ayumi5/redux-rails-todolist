@@ -1,12 +1,11 @@
 class ListsController < ApplicationController
   protect_from_forgery except: [:create]
-  before_action :authenticate_user!
 
   def index
     @todos = [{'todo' => 'Pat a dog', 'completed' => true}, {'todo' => 'Play with a dog', 'completed' => false}]
     respond_to do |format|
       format.html
-      format.json { render json: @todos }
+      format.json { render json: {test: "test"} }
     end
   end
 

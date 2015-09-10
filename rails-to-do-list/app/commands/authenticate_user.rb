@@ -1,5 +1,6 @@
 class AuthenticateUser
   prepend SimpleCommand
+  require_relative '../../lib/json_web_token'
 
   def initialize(email, password)
     @email = email
@@ -16,7 +17,7 @@ class AuthenticateUser
 
   def user
     user = User.find_by_email(email)
-    puts "password", password
+    return user
     #return user if user && user.authenticate(password)
 
     errors.add :user_authentication, "invalid credentials"

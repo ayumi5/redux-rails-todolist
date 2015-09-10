@@ -13,7 +13,7 @@ export default class App extends Component {
     dispatch(getToken("http://localhost:3000/lists"));
   }
   render(){
-    const { dispatch, allTodos, lists, login } = this.props;
+    const { dispatch, allTodos, lists, login, user } = this.props;
     return (
       <div>
         { login.Loggedin &&
@@ -31,8 +31,9 @@ export default class App extends Component {
         { login.Loggedin &&
           <FetchList
             lists={lists}
-            onFetchClick={type =>
-              dispatch(fetchList(type))
+            user={user}
+            onFetchClick={user =>
+              dispatch(fetchList(user))
           }/>
         }
         { !login.Loggedin &&
@@ -50,7 +51,8 @@ function select(state){
   return {
     allTodos: state.newtodos,
     lists: state.lists,
-    login: state.login
+    login: state.login,
+    user: state.login.user
   };
 }
 

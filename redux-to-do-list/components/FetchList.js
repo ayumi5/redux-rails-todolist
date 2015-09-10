@@ -5,16 +5,9 @@ export default class FetchList extends Component {
     return (
       <div>
         <ul>
-          {this.props.lists.items.map((list, index)=>
-            <li style={{
-              textDecoration: list.todo.completed ? "line-through" : "none",
-              cursor: list.todo.completed ? "default" : "pointer"
-            }}>
-              {list.todo}
-            </li>
-          )}
+          {this.props.lists}
         </ul>
-        <button onClick={(e) => this.props.onFetchClick('test')}>Fetch</button>
+        <button onClick={(e) => this.props.onFetchClick(this.props.users)}>Fetch</button>
       </div>
     )
   }

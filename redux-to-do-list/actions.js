@@ -23,20 +23,20 @@ function requestList(list) {
   return {type: "REQUEST_LIST", list}
 }
 
-function receiveList(list, json) {
+function receiveList(json) {
   return {
-    type: "RECEIVE_LIST",
-    list,
-    list: json
-  };
+    type: "RECEIVE_LIST", list: json};
 }
 
-export function fetchList(list) {
+export function fetchList(user){
   return dispatch => {
-    dispatch(requestList(list));
-    return fetch('http://localhost:3000/lists.json')
-      .then(req => req.json())
-      .then(json => dispatch(receiveList(list, json)))
+    dispatch(requestList(user));
+    return xhr({
+      uri: 'http://localhost:3000/lists.json',
+      headers: {'Authorization': user.auth_token}
+    }, function (err, resp, body) {
+      dispatch(receiveList(resp.body))
+    });
   }
 }
 
@@ -75,18 +75,16 @@ export function postUser(user){
       }
     }, function (err, resp, body) {
       if(resp.statusCode >= 300) {
-        //dispatch(loginFailed(user))
+        dispatch(loginFailed(user))
       } else {
-        console.log(resp)
-        //dispatch(userLogin(user))
+        user['auth_token'] = resp.body.auth_token
+        dispatch(userLogin(user))
+        dispatch(fetchList(user))
       }
     })
   }
 }
 
-function setToken(token){
-  return {type: "SET_TOKEN", token}
-}
 
 export function getToken(path){
   return dispatch => {
@@ -94,8 +92,6 @@ export function getToken(path){
       uri: { path },
       headers: {'Authorization': "gettoken"}
     }, function (err, resp, body) {
-      //console.log(resp)
-      //dispatch(setToken("reuiofda"))
     });
   }
 }
@@ -116,14 +112,12 @@ export function getToken(path){
 //     isPosting: false,
 //     items: []
 //   }
-//   userLogin: {
+//   login: {
 //     isLoggingin: false,
 //     Loggedin: true,
-//     user: [
-//       { email: "example@test.com", password: "password" }
+//     users: [
+//       { email: "example@test.com", password: "password", auth_token: "fdafdjkaffdhgadjkfajdkla3d2" }
 //     ]
+//
 //   }
-//  getToken: {
-//   token: 'fdsafdjkls;vdsafdk342'
-//  }
 // }
