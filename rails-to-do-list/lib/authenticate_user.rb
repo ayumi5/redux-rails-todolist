@@ -1,6 +1,5 @@
 class AuthenticateUser
   prepend SimpleCommand
-  require_relative '../../lib/json_web_token'
 
   def initialize(email, password)
     @email = email
