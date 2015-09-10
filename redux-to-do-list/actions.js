@@ -35,7 +35,8 @@ export function fetchList(user){
       uri: 'http://localhost:3000/lists.json',
       headers: {'Authorization': user.auth_token}
     }, function (err, resp, body) {
-      dispatch(receiveList(resp.body))
+      var list = JSON.parse(resp.body);
+      dispatch(receiveList(list))
     });
   }
 }
