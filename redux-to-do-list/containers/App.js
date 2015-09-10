@@ -26,13 +26,6 @@ export default class App extends Component {
               dispatch(completeTodo(index))
           }/>
         }
-        { login.Loggedin &&
-          <FetchList
-            user={user}
-            onFetchClick={user =>
-              dispatch(fetchList(user))
-          }/>
-        }
         { !login.Loggedin &&
           <UserAuthentication
             onLoginClick={user =>

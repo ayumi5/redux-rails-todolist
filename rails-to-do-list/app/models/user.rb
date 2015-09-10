@@ -7,4 +7,6 @@ class User < ActiveRecord::Base
     user = User.find_by_email(email)
     user && user.valid_password?(password) ? user : nil
   end
+
+  has_many :lists
 end

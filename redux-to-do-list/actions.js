@@ -56,7 +56,7 @@ export function postList(text, user) {
       if(resp.statusCode >= 300) {
         console.log(err)
       } else {
-        dispatch(newTodo(text));
+        //dispatch(newTodo(text));
       }
     })
   }
@@ -84,6 +84,7 @@ export function postUser(user){
       if(resp.statusCode >= 300) {
         dispatch(loginFailed(user))
       } else {
+        console.log(resp)
         user['auth_token'] = resp.body.auth_token
         dispatch(userLogin(user))
         dispatch(fetchList(user))
@@ -94,13 +95,13 @@ export function postUser(user){
 
 //state shape
 // {
-//  fetchTodos: {
+//  fetchtodos: {
 //    isFetching: false,
-//    todos: [
+//    items: [
 //      {todo: "love a dog", completed: true}
 //    ]
 //  }
-//   postTodos: {
+//   newtodos: {
 //     isPosting: false,
 //     items: []
 //   }
