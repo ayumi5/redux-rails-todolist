@@ -1,6 +1,5 @@
 import xhr from 'xhr';
 
-export const NEW_TO_DO = "NEW_TO_DO";
 export const COMPLETE_TO_DO = "COMPLETE_TO_DO";
 export const REQUEST_LIST = "REQUEST_LIST";
 export const RECEIVE_LIST = "RECEIVE_LIST";
@@ -11,12 +10,12 @@ export const LOGIN_FAILED = "LOGIN_FAILED";
 export const SEND_USER = "SEND_USER";
 export const LIST_POSTED = "LIST_POSTED";
 
-export function newTodo(text) {
-  return {type: "NEW_TO_DO", text}
+function userLogin(user) {
+  return {type: "USER_LOGIN", user}
 }
 
-export function completeTodo(index) {
-  return {type: "COMPLETE_TO_DO", index}
+function loginFailed(user){
+  return {type: "LOGIN_FAILED", user}
 }
 
 function requestList(user) {
@@ -31,12 +30,16 @@ function posting(user){
   return {type: "POSTING", user}
 }
 
-export function listPosted(list){
+function listPosted(list){
   return {type: "LIST_POSTED", list: list}
 }
 
 function sendUser(user){
   return {type: "SEND_USER", user}
+}
+
+export function completeTodo(index) {
+  return {type: "COMPLETE_TO_DO", index}
 }
 
 export function fetchList(user){
@@ -73,14 +76,6 @@ export function postList(text, user) {
   }
 }
 
-function userLogin(user) {
-  return {type: "USER_LOGIN", user}
-}
-
-function loginFailed(user){
-  return {type: "LOGIN_FAILED", user}
-}
-
 export function postUser(user){
   return dispatch  => {
     dispatch(sendUser(user))
@@ -102,20 +97,3 @@ export function postUser(user){
     })
   }
 }
-
-//state shape
-// {
-//  todos:{
-//    isFetching: false,
-//    isPosting: false,
-//    items: [
-//      {todo: "love a dog", completed: true, user_id: 1}
-//    ]
-//  }
-//  user: {
-//    isLoggingin: false,
-//    Loggedin: true,
-//    info:
-//      { email: "example@test.com", password: "password", auth_token: "fdafdjkaffdhgadjkfajdkla3d2" }
-//   }
-// }

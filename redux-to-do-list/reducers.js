@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import {NEW_TO_DO, COMPLETE_TO_DO, REQUEST_LIST, RECEIVE_LIST, POST_LIST, USER_LOGIN, LOGIN_FAILED, SEND_USER, POSTING, LIST_POSTED} from './actions';
+import {COMPLETE_TO_DO, REQUEST_LIST, RECEIVE_LIST, POST_LIST, USER_LOGIN, LOGIN_FAILED, SEND_USER, POSTING, LIST_POSTED} from './actions';
 
 function todos(state={
   isFetching: false,
   isPosting: false,
-  items: [{todo: "test"}]
+  items: []
 }, action){
   switch(action.type){
   case REQUEST_LIST:

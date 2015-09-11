@@ -7,10 +7,6 @@ class ApplicationController < ActionController::Base
   attr_reader :current_user
   helper_method :current_user
 
-  def after_sign_in_path_for(resource)
-    root_path
-  end
-
   private
 
   def authenticate_request
