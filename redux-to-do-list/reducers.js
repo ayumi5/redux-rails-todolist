@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
-import {NEW_TO_DO, COMPLETE_TO_DO, REQUEST_LIST, RECEIVE_LIST, POST_LIST, USER_LOGIN, LOGIN_FAILED, SEND_USER} from './actions';
+import {NEW_TO_DO, COMPLETE_TO_DO, REQUEST_LIST, RECEIVE_LIST, POST_LIST, USER_LOGIN, LOGIN_FAILED, SEND_USER, POSTING, LIST_POSTED} from './actions';
 
-function fetchtodos(state={
+function todos(state={
   isFetching: false,
-  todos: []
-}, action) {
-  switch(action.type) {
+  isPosting: false,
+  items: [{todo: "test"}]
+}, action){
+  switch(action.type){
   case REQUEST_LIST:
     return Object.assign({}, state, {
       isFetching: true
@@ -13,34 +14,29 @@ function fetchtodos(state={
   case RECEIVE_LIST:
     return Object.assign({}, state, {
       isFetching: false,
-      todos: action.list
+      items: action.list
     });
-  default:
-    return state
-  }
-}
-
-function newtodos(state = [], action) {
-  switch (action.type) {
-  default:
-    return state;
-  }
-}
-
-function lists(state={
-  isFetching: false,
-  items: []
-}, action) {
-  switch(action.type) {
+  case POSTING:
+    return Object.assign({}, state, {
+      isPosting: true
+    });
+  case LIST_POSTED:
+    return {
+      isPosting: false,
+      items: [...state.items, {
+        todo: action.list.todo,
+        completed: action.list.completed
+      }]
+    }
   default:
     return state;
   }
 }
 
-function login(state={
+function user(state={
   isLoggingin: false,
   Loggedin: false,
-  user: []
+  info: []
 }, action){
   switch(action.type){
   case SEND_USER:
@@ -51,7 +47,7 @@ function login(state={
     return Object.assign({}, state, {
       isLoggingin: false,
       Loggedin: true,
-      user: action.user
+      info: action.user
     });
   case LOGIN_FAILED:
     return Object.assign({}, state, {
@@ -64,7 +60,7 @@ function login(state={
 }
 
 const rootReducer = combineReducers({
-  login,
-  fetchtodos
+  user,
+  todos
 })
 export default rootReducer;

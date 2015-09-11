@@ -5,14 +5,18 @@ class ListsController < ApplicationController
     @todos = List.where(user_id: current_user.id)
     respond_to do |format|
       format.html
-      format.json { render json: {todos: @todos} }
+      format.json { render json: @todos }
     end
   end
 
   def create
     updated_attr = list_attr.merge({user_id: current_user.id})
-    @list = List.create(updated_attr)
-    redirect_to action: 'index', status: :ok
+    @todo = List.create(updated_attr)
+    respond_to do |format|
+      format.html {redirect_to action: 'index', status: :ok}
+      format.json { render json: @todo }
+    end
+
   end
 
   private

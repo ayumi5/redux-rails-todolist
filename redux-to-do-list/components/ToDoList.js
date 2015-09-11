@@ -5,7 +5,11 @@ export default class ToDoList extends Component {
   render(){
     return (
       <ul>
-        {this.props.todos}
+        {this.props.todos.items.map((item, index) =>
+          <ToDo item={item}
+                key={index}
+                onClick={() => this.props.onTodoClick(index)} />
+        )}
       </ul>
     )
   }

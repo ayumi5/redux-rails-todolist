@@ -6,11 +6,11 @@ export default class ToDo extends Component {
       <li
         onClick={this.props.onClick}
         style={{
-          textDecoration: this.props.todo.completed ? "line-through" : "none",
-          cursor: this.props.todo.completed ? "default" : "pointer"
+          textDecoration: this.props.item.completed ? "line-through" : "none",
+          cursor: this.props.item.completed ? "default" : "pointer"
         }}>
-        {this.props.todo.todo}
+        {this.props.item.todo}
       </li>
-    )
+    );
   }
 }

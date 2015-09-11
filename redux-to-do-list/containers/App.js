@@ -5,28 +5,28 @@ import ToDo from '../components/ToDo';
 import ToDoList from '../components/ToDoList';
 import FetchList from '../components/FetchList';
 import UserAuthentication from '../components/UserAuthentication'
-import { newTodo, completeTodo, fetchList, postList, postUser } from '../actions'
+import { completeTodo, fetchList, postList, postUser } from '../actions'
 
 export default class App extends Component {
   render(){
-    const { dispatch, allTodos, login, user } = this.props;
+    const { dispatch, allTodos, user } = this.props;
     return (
       <div>
-        { login.Loggedin &&
+        { user.Loggedin &&
           <NewToDo
             user={user}
             onAddClick={text =>
-            dispatch(postList(text, user))
+            dispatch(postList(text, user.info))
           }/>
         }
-        { login.Loggedin &&
+        { user.Loggedin &&
           <ToDoList
             todos={allTodos}
             onTodoClick={index =>
               dispatch(completeTodo(index))
           }/>
         }
-        { !login.Loggedin &&
+        { !user.Loggedin &&
           <UserAuthentication
             onLoginClick={user =>
               dispatch(postUser(user))
@@ -39,9 +39,8 @@ export default class App extends Component {
 
 function select(state){
   return {
-    login: state.login,
-    user: state.login.user,
-    allTodos: state.fetchtodos.todos
+    user: state.user,
+    allTodos: state.todos
   };
 }
 
