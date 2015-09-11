@@ -9,6 +9,7 @@ export const USER_LOGIN = "USER_LOGIN";
 export const LOGIN_FAILED = "LOGIN_FAILED";
 export const SEND_USER = "SEND_USER";
 export const LIST_POSTED = "LIST_POSTED";
+export const LIST_UPDATED = "LIST_UPDATED";
 
 function userLogin(user) {
   return {type: "USER_LOGIN", user}
@@ -34,13 +35,17 @@ function listPosted(list){
   return {type: "LIST_POSTED", list: list}
 }
 
+function listUpdated(list){
+  return {type: "LIST_UPDATED", list: list}
+}
+
 function sendUser(user){
   return {type: "SEND_USER", user}
 }
 
-export function completeTodo(index) {
-  return {type: "COMPLETE_TO_DO", index}
-}
+// export function completeTodo(index) {
+//   return {type: "COMPLETE_TO_DO", index}
+// }
 
 export function fetchList(user){
   return dispatch => {
@@ -71,6 +76,27 @@ export function postList(text, user) {
         console.log(err)
       } else {
         dispatch(listPosted(resp.body));
+      }
+    })
+  }
+}
+
+export function completeTodo(id, user){
+  return dispatch => {
+    dispatch(posting(id));
+    return xhr({
+      json: {id: id, completed: true},
+      uri: "http://localhost:3000/lists/" + id,
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': user.auth_token
+      }
+    }, function (err, resp, body) {
+      if(resp.statusCode >= 300) {
+        console.log(err)
+      } else {
+        dispatch(listUpdated(resp.body));
       }
     })
   }

@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  protect_from_forgery except: [:create]
+  protect_from_forgery except: [:create, :update]
 
   def index
     @todos = List.where(user_id: current_user.id)
@@ -16,7 +16,15 @@ class ListsController < ApplicationController
       format.html {redirect_to action: 'index', status: :ok}
       format.json { render json: @todo }
     end
+  end
 
+  def update
+    @todo = List.find(params[:id])
+    @todo.update(list_attr)
+    respond_to do |format|
+      format.html {redirect_to action: 'index', status: :ok}
+      format.json { render json: {success: "true"} }
+    end
   end
 
   private
