@@ -24,14 +24,15 @@ function todos(state={
     return {
       isPosting: false,
       items: [...state.items, {
+        id: action.list.id,
         todo: action.list.todo,
         completed: action.list.completed
       }]
     }
   case LIST_UPDATED:
-    return {
+    return Object.assign({}, state, {
       isPosting: false
-    }
+    });
   default:
     return state;
   }
