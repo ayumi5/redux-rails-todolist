@@ -1,15 +1,13 @@
 import xhr from 'xhr';
 
-export const COMPLETE_TO_DO = "COMPLETE_TO_DO";
-export const REQUEST_LIST = "REQUEST_LIST";
-export const RECEIVE_LIST = "RECEIVE_LIST";
-export const POST_LIST = "POST_LIST";
-export const POSTING = "POSTING";
 export const USER_LOGIN = "USER_LOGIN";
 export const LOGIN_FAILED = "LOGIN_FAILED";
 export const SEND_USER = "SEND_USER";
-export const LIST_POSTED = "LIST_POSTED";
-export const LIST_UPDATED = "LIST_UPDATED";
+export const REQUEST_LIST = "REQUEST_LIST";
+export const RECEIVE_LIST = "RECEIVE_LIST";
+export const POSTING = "POSTING";
+export const RECEIVE_TODO = "RECEIVE_TODO";
+export const COMPLETE_TODO = "COMPLETE_TODO";
 
 function userLogin(user) {
   return {type: "USER_LOGIN", user}
@@ -27,16 +25,16 @@ function receiveList(list) {
   return { type: "RECEIVE_LIST", list: list }
 }
 
-function posting(user){
-  return {type: "POSTING", user}
+function posting(posting){
+  return {type: "POSTING", posting}
 }
 
-function listPosted(list){
-  return {type: "LIST_POSTED", list: list}
+function receiveTodo(list){
+  return {type: "RECEIVE_TODO", list: list}
 }
 
-function listUpdated(index){
-  return {type: "LIST_UPDATED", index: index}
+function completeTodo(index){
+  return {type: "COMPLETE_TODO", index: index}
 }
 
 function sendUser(user){
@@ -56,9 +54,9 @@ export function fetchList(user){
   }
 }
 
-export function postList(text, user) {
+export function postTodo(text, user) {
   return dispatch => {
-    dispatch(posting(user));
+    dispatch(posting("true"));
     return xhr({
       json: { todo: text, completed: false },
       uri: "http://localhost:3000/lists",
@@ -71,7 +69,7 @@ export function postList(text, user) {
       if(resp.statusCode >= 300) {
         console.log(err)
       } else {
-        dispatch(listPosted(resp.body));
+        dispatch(receiveTodo(resp.body));
       }
     })
   }
@@ -79,7 +77,7 @@ export function postList(text, user) {
 
 export function completeList(list, user){
   return dispatch => {
-    dispatch(posting(list));
+    dispatch(posting("true"));
     return xhr({
       json: {id: list.id, completed: true},
       uri: "http://localhost:3000/lists/" + list.id,
@@ -92,7 +90,7 @@ export function completeList(list, user){
       if(resp.statusCode >= 300) {
         console.log(err)
       } else {
-        dispatch(listUpdated(list.index));
+        dispatch(completeTodo(list.index));
       }
     })
   }

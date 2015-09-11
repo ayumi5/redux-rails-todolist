@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import {COMPLETE_TO_DO, REQUEST_LIST, RECEIVE_LIST, POST_LIST, USER_LOGIN, LOGIN_FAILED, SEND_USER, POSTING, LIST_POSTED, LIST_UPDATED} from './actions';
+import {REQUEST_LIST, RECEIVE_LIST, USER_LOGIN, LOGIN_FAILED, SEND_USER, POSTING, RECEIVE_TODO, COMPLETE_TODO} from './actions';
 
 function todos(state={
   isFetching: false,
@@ -18,9 +18,9 @@ function todos(state={
     });
   case POSTING:
     return Object.assign({}, state, {
-      isPosting: true
+      isPosting: action.posting
     });
-  case LIST_POSTED:
+  case RECEIVE_TODO:
     return Object.assign({}, state, {
       isPosting: false,
       items: [...state.items, {
@@ -29,7 +29,7 @@ function todos(state={
         completed: action.list.completed
       }]
     })
-  case LIST_UPDATED:
+  case COMPLETE_TODO:
     return Object.assign({}, state, {
       isPosting: false,
       items: [
