@@ -23,7 +23,7 @@ class ListsController < ApplicationController
     @todo.update(list_attr)
     respond_to do |format|
       format.html {redirect_to action: 'index', status: :ok}
-      format.json { render json: {success: "true"} }
+      format.json { render json: @todo }
     end
   end
 

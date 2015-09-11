@@ -21,18 +21,25 @@ function todos(state={
       isPosting: true
     });
   case LIST_POSTED:
-    return {
+    return Object.assign({}, state, {
       isPosting: false,
       items: [...state.items, {
         id: action.list.id,
         todo: action.list.todo,
         completed: action.list.completed
       }]
-    }
+    })
   case LIST_UPDATED:
     return Object.assign({}, state, {
-      isPosting: false
-    });
+      isPosting: false,
+      items: [
+          ...state.items.slice(0, action.index),
+          Object.assign({}, state.items[action.index], {
+            completed: true
+          }),
+          ...state.items.slice(action.index + 1)
+      ]
+    })
   default:
     return state;
   }

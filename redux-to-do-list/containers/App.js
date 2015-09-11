@@ -5,7 +5,7 @@ import ToDo from '../components/ToDo';
 import ToDoList from '../components/ToDoList';
 import FetchList from '../components/FetchList';
 import UserAuthentication from '../components/UserAuthentication'
-import { fetchList, postList, postUser, completeTodo } from '../actions'
+import { fetchList, postList, postUser, completeList } from '../actions'
 
 export default class App extends Component {
   render(){
@@ -23,8 +23,8 @@ export default class App extends Component {
           <ToDoList
             todos={allTodos}
             user={user}
-            onTodoClick={id =>
-              dispatch(completeTodo(id, user.info))
+            onTodoClick={list=>
+              dispatch(completeList(list, user.info))
           }/>
         }
         { !user.Loggedin &&

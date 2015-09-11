@@ -35,17 +35,13 @@ function listPosted(list){
   return {type: "LIST_POSTED", list: list}
 }
 
-function listUpdated(list){
-  return {type: "LIST_UPDATED", list: list}
+function listUpdated(index){
+  return {type: "LIST_UPDATED", index: index}
 }
 
 function sendUser(user){
   return {type: "SEND_USER", user}
 }
-
-// export function completeTodo(index) {
-//   return {type: "COMPLETE_TO_DO", index}
-// }
 
 export function fetchList(user){
   return dispatch => {
@@ -81,12 +77,12 @@ export function postList(text, user) {
   }
 }
 
-export function completeTodo(id, user){
+export function completeList(list, user){
   return dispatch => {
-    dispatch(posting(id));
+    dispatch(posting(list));
     return xhr({
-      json: {id: id, completed: true},
-      uri: "http://localhost:3000/lists/" + id,
+      json: {id: list.id, completed: true},
+      uri: "http://localhost:3000/lists/" + list.id,
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -96,7 +92,7 @@ export function completeTodo(id, user){
       if(resp.statusCode >= 300) {
         console.log(err)
       } else {
-        dispatch(listUpdated(resp.body));
+        dispatch(listUpdated(list.index));
       }
     })
   }

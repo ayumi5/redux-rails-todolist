@@ -7,7 +7,7 @@ export default class ToDoList extends Component {
       <ul>
         {this.props.todos.items.map((item, index) =>
           <ToDo item={item}
-                onClick={() => this.props.onTodoClick(item.id, this.props.user)} />
+                onClick={() => this.props.onTodoClick({id: item.id, index: index}, this.props.user)} />
         )}
       </ul>
     )
