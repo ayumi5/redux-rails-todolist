@@ -8,9 +8,14 @@ export const RECEIVE_LIST = "RECEIVE_LIST";
 export const POSTING = "POSTING";
 export const RECEIVE_TODO = "RECEIVE_TODO";
 export const COMPLETE_TODO = "COMPLETE_TODO";
+export const USER_LOGOUT= "USER_LOGOUT";
 
 function userLogin(user) {
   return {type: "USER_LOGIN", user}
+}
+
+function userLogout(user) {
+  return {type: "USER_LOGOUT", user}
 }
 
 function loginFailed(user){
@@ -115,5 +120,15 @@ export function postUser(user){
         dispatch(fetchList(user))
       }
     })
+  }
+}
+
+export function deleteUser(user){
+  return dispatch  => {
+    dispatch(sendUser(user))
+    user.email = ''
+    user.password = ''
+    user.auth_token = ''
+    dispatch(userLogout(user))
   }
 }
