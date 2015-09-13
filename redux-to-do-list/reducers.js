@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import {REQUEST_LIST, RECEIVE_LIST, USER_LOGIN, USER_LOGOUT, LOGIN_FAILED, SEND_USER, POSTING, RECEIVE_TODO, COMPLETE_TODO} from './actions';
+import {REQUEST_LIST, RECEIVE_LIST, POSTING, RECEIVE_TODO, COMPLETE_TODO, PROCESS_USER, USER_LOGIN, LOGIN_FAILED, USER_LOGOUT} from './actions';
 
 function todos(state={
   isFetching: false,
@@ -51,7 +51,7 @@ function user(state={
   info: []
 }, action){
   switch(action.type){
-  case SEND_USER:
+  case PROCESS_USER:
     return Object.assign({}, state, {
       proceccing: true
     })

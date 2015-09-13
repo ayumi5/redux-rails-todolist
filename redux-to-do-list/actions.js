@@ -1,14 +1,14 @@
 import xhr from 'xhr';
 
+export const PROCESS_USER = "PROCESS_USER";
 export const USER_LOGIN = "USER_LOGIN";
 export const LOGIN_FAILED = "LOGIN_FAILED";
-export const SEND_USER = "SEND_USER";
+export const USER_LOGOUT= "USER_LOGOUT";
 export const REQUEST_LIST = "REQUEST_LIST";
 export const RECEIVE_LIST = "RECEIVE_LIST";
 export const POSTING = "POSTING";
 export const RECEIVE_TODO = "RECEIVE_TODO";
 export const COMPLETE_TODO = "COMPLETE_TODO";
-export const USER_LOGOUT= "USER_LOGOUT";
 
 function userLogin(user) {
   return {type: "USER_LOGIN", user}
@@ -80,7 +80,7 @@ export function postTodo(text, user) {
   }
 }
 
-export function completeList(list, user){
+export function postComplete(list, user){
   return dispatch => {
     dispatch(posting("true"));
     return xhr({
