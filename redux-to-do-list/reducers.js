@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
-import {REQUEST_LIST, RECEIVE_LIST, POSTING, RECEIVE_TODO, COMPLETE_TODO, PROCESS_USER, USER_LOGIN, LOGIN_FAILED, USER_LOGOUT} from './actions';
+import {REQUEST_LIST, RECEIVE_LIST, POSTING, RECEIVE_TODO, COMPLETE_TODO} from './actions/list'
+import {PROCESS_USER, USER_LOGIN, LOGIN_FAILED, USER_LOGOUT} from './actions/userSession';
 
 function todos(state={
   isFetching: false,

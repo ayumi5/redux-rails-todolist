@@ -6,7 +6,8 @@ import ToDoList from '../components/ToDoList';
 import FetchList from '../components/FetchList';
 import UserAuthentication from '../components/UserAuthentication'
 import LogOut from '../components/LogOut'
-import { fetchList, postTodo, postUser, postComplete, deleteUser } from '../actions'
+import { fetchList, postTodo, postComplete } from '../actions/list'
+import { postUser, deleteUser } from '../actions/userSession'
 
 export default class App extends Component {
   render(){
